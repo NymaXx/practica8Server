@@ -27,6 +27,9 @@ public class Main extends PApplet {
 	
 	private ArrayList<Bala> balasJ1;
 	private ArrayList<Bala> balasJ2;
+	
+	private boolean J1vivo;
+	private boolean J2vivo;
 
 	public static void main(String[] args) {
 		PApplet.main("main.Main");
@@ -54,6 +57,9 @@ public class Main extends PApplet {
 		
 		balasJ1 = new ArrayList<>();
 		balasJ2 = new ArrayList<>();
+		
+		J1vivo = true;
+		J2vivo = true;
 	}
 
 	// Infinito
@@ -61,17 +67,23 @@ public class Main extends PApplet {
 		background(0, 0, 0);
 		fill(255, 0, 0);
 		ellipse(xBolita, yBolita, 50, 50);
-
-		player1.pintar();
-		player2.pintar();
 		
+		if(J1vivo) {
+			player1.pintar();
+		}
+		if(J2vivo) {
+			player2.pintar();
+		}
 		
 		for(int i = 0 ; i < balasJ1.size() ; i++) {
 			Bala b1 = balasJ1.get(i);
 			b1.pintar();
 			if(b1.getX()<0) {
 				balasJ1.remove(i);
-				break;
+
+			if(dist(player2.getX(), player2.getY(), b1.getX(), b1.getY()) < 50) {
+				J2vivo = false;
+				}
 			}
 		}
 		
@@ -80,9 +92,15 @@ public class Main extends PApplet {
 			b2.pintar();
 			if(b2.getX()<0) {
 				balasJ2.remove(u);
-				break;
+				
+			if(dist(player1.getX(), player1.getY(), b2.getX(), b2.getY()) < 50) {
+				J1vivo = false;
+				}
 			}
 		}
+		
+		
+		
 		
 		
 	}
@@ -161,6 +179,11 @@ public class Main extends PApplet {
 				break;
 			case "LEFTSTOP":
 				player2.desactivateLeftMove();;
+				break;
+				
+			case "FIRESTART":
+				Bala bala2 = new Bala(this, player2.getX(), player2.getY(), true);
+				balasJ2.add(bala2);
 				break;
 
 			}

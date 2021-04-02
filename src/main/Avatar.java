@@ -62,6 +62,8 @@ public class Avatar {
 	
 	
 	
+	
+	
 
 	public int getX() {
 		return x;
