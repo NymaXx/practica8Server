@@ -30,6 +30,9 @@ public class Main extends PApplet {
 	
 	private boolean J1vivo;
 	private boolean J2vivo;
+	
+	private boolean J1win;
+	private boolean J2win;
 
 	public static void main(String[] args) {
 		PApplet.main("main.Main");
@@ -60,6 +63,9 @@ public class Main extends PApplet {
 		
 		J1vivo = true;
 		J2vivo = true;
+		
+		J1win = false;
+		J2win = false;
 	}
 
 	// Infinito
@@ -78,12 +84,8 @@ public class Main extends PApplet {
 		for(int i = 0 ; i < balasJ1.size() ; i++) {
 			Bala b1 = balasJ1.get(i);
 			b1.pintar();
-			if(b1.getX()<0) {
+			if(b1.getX()>width) {
 				balasJ1.remove(i);
-
-			if(dist(player2.getX(), player2.getY(), b1.getX(), b1.getY()) < 50) {
-				J2vivo = false;
-				}
 			}
 		}
 		
@@ -92,16 +94,49 @@ public class Main extends PApplet {
 			b2.pintar();
 			if(b2.getX()<0) {
 				balasJ2.remove(u);
-				
-			if(dist(player1.getX(), player1.getY(), b2.getX(), b2.getY()) < 50) {
-				J1vivo = false;
+			}
+		}
+		
+		
+		for(int i = 0 ; i < balasJ1.size() ; i++) {
+			Bala bal1 = balasJ1.get(i);
+			if(PApplet.dist(player2.getX(), player2.getY(), bal1.getX(), bal1.getY()) <= 50) {
+				J2vivo = false;
+				balasJ1.remove(i);
+				J1win = true;
 				}
 			}
+		
+		for(int u = 0 ; u < balasJ2.size() ; u++) {
+			Bala bal2 = balasJ2.get(u);
+			if(PApplet.dist(player1.getX(), player1.getY(), bal2.getX(), bal2.getY()) <= 50) {
+				J1vivo = false;
+				balasJ2.remove(u);
+				J2win = true;
+				}
+			}	
+		
+		if(J1win == true) {
+			fill(255);
+			textSize(20);
+			text("Player1 Has Ganado!", height/2, width/2);
+			J2win=false;
+		}
+		
+		if(J2win == true) {
+			fill(255);
+			textSize(20);
+			text("Player2 Has Ganado!", height/2, width/2);
+			J1win=false;
 		}
 		
 		
 		
 		
+	}
+
+	private void textFill(int i) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -182,7 +217,7 @@ public class Main extends PApplet {
 				break;
 				
 			case "FIRESTART":
-				Bala bala2 = new Bala(this, player2.getX(), player2.getY(), true);
+				Bala bala2 = new Bala(this, player2.getX(), player2.getY(), false);
 				balasJ2.add(bala2);
 				break;
 
