@@ -51,7 +51,7 @@ public class Main extends PApplet {
 		player2 = new Avatar(this, 400, 400, color(0, 0, 255));
 	}
 
-	// Inifito
+	// Infinito
 	public void draw() {
 		background(0, 0, 0);
 		fill(255, 0, 0);
@@ -64,22 +64,37 @@ public class Main extends PApplet {
 	// El metodo de notificacion: Aqui se recibe la informacion del evento
 	public void notificar(Coordenada c, Object obj) {
 
-		// obj será un objeto de TCPConnectionP1?
+		// obj sera un objeto de TCPConnectionP1?
 		if (obj instanceof TCPConnectionP1) {
 			System.out.println("JUGADOR 1:" + c.getAccion());
 			switch (c.getAccion()) {
 
-			case "DOWN":
-				player1.moveDown();
+			case "DOWNSTART":
+				player1.activateDownMove();
 				break;
-			case "UP":
-				player1.moveUp();
+			case "DOWNSTOP":
+				player1.desactivateDownMove();
 				break;
-			case "RIGHT":
-				player1.moveRight();
+				
+			case "UPSTART":
+				player1.activateUpMove();
 				break;
-			case "LEFT":
-				player1.moveLeft();
+			case "UPSTOP":
+				player1.desactivateUpMove();
+				break;
+				
+			case "RIGHTSTART":
+				player1.activateRightMove();
+				break;
+			case "RIGHTSTOP":
+				player1.desactivateRightMove();
+				break;
+				
+			case "LEFTSTART":
+				player1.activateLeftMove();;
+				break;
+			case "LEFTSTOP":
+				player1.desactivateLeftMove();;
 				break;
 
 			}
@@ -90,17 +105,32 @@ public class Main extends PApplet {
 			System.out.println("JUGADOR 2:" + c.getAccion());
 			switch (c.getAccion()) {
 
-			case "DOWN":
-				player2.moveDown();
+			case "DOWNSTART":
+				player2.activateDownMove();
 				break;
-			case "UP":
-				player2.moveUp();
+			case "DOWNSTOP":
+				player2.desactivateDownMove();
 				break;
-			case "RIGHT":
-				player2.moveRight();
+				
+			case "UPSTART":
+				player2.activateUpMove();
 				break;
-			case "LEFT":
-				player2.moveLeft();
+			case "UPSTOP":
+				player2.desactivateUpMove();
+				break;
+				
+			case "RIGHTSTART":
+				player2.activateRightMove();
+				break;
+			case "RIGHTSTOP":
+				player2.desactivateRightMove();
+				break;
+				
+			case "LEFTSTART":
+				player2.activateLeftMove();;
+				break;
+			case "LEFTSTOP":
+				player2.desactivateLeftMove();;
 				break;
 
 			}
