@@ -1,14 +1,13 @@
 package main;
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.Socket;*/
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import com.google.gson.Gson;
 
@@ -25,6 +24,9 @@ public class Main extends PApplet {
 
 	private TCPConnectionP1 conexionJ1;
 	private TCPConnectionP2 conexionJ2;
+	
+	private ArrayList<Bala> balasJ1;
+	private ArrayList<Bala> balasJ2;
 
 	public static void main(String[] args) {
 		PApplet.main("main.Main");
@@ -49,6 +51,9 @@ public class Main extends PApplet {
 
 		player1 = new Avatar(this, 100, 100, color(255, 0, 0));
 		player2 = new Avatar(this, 400, 400, color(0, 0, 255));
+		
+		balasJ1 = new ArrayList<>();
+		balasJ2 = new ArrayList<>();
 	}
 
 	// Infinito
@@ -59,6 +64,27 @@ public class Main extends PApplet {
 
 		player1.pintar();
 		player2.pintar();
+		
+		
+		for(int i = 0 ; i < balasJ1.size() ; i++) {
+			Bala b1 = balasJ1.get(i);
+			b1.pintar();
+			if(b1.getX()<0) {
+				balasJ1.remove(i);
+				break;
+			}
+		}
+		
+		for(int u = 0 ; u < balasJ2.size() ; u++) {
+			Bala b2 = balasJ2.get(u);
+			b2.pintar();
+			if(b2.getX()<0) {
+				balasJ2.remove(u);
+				break;
+			}
+		}
+		
+		
 	}
 
 	// El metodo de notificacion: Aqui se recibe la informacion del evento
@@ -96,7 +122,11 @@ public class Main extends PApplet {
 			case "LEFTSTOP":
 				player1.desactivateLeftMove();;
 				break;
-
+				
+			case "FIRESTART":
+				Bala bala1 = new Bala(this, player1.getX(), player1.getY(), true);
+				balasJ1.add(bala1);
+				break;
 			}
 
 		}
